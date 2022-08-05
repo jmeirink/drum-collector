@@ -22,17 +22,19 @@
 <section class="card-container">
   {% for drum in drums %}
     <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img 
-            src="{% static 'images/drum.svg' %}" 
-            alt="A drum"
-          >
+      <a href="/drums/{{ drum.id }}">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img 
+              src="{% static 'images/drum.svg' %}" 
+              alt="A drum"
+            >
+          </div>
+          <h2 class="card-title">{{ drum.name }}</h2>
+          <p>A {{ drum.type }} drum</p>
+          <p><small>{{ cat.description }}</small></p>
         </div>
-        <h2 class="card-title">{{ drum.name }}</h2>
-        <p>A {{ drum.type }} drum</p>
-        <p><small>{{ cat.description }}</small></p>
-      </div>
+      </a>
     </div>
   {% endfor %}
 </section>

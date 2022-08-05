@@ -1,16 +1,5 @@
 from django.shortcuts import render
-
-class Drum:
-  def __init__(self, name, type, description):
-    self.name = name
-    self.type = type
-    self.description = description
-
-drums = [
-  Drum('Recording Custom', 'Snare', 'Bright'),
-  Drum('Black Beauty', 'Snare', 'Warm and cutting'),
-  Drum('Oak Custom', 'Snare', 'Punchy AF'),
-]
+from .models import Drum
 
 # Create your views here.
 def home(request):
@@ -20,4 +9,9 @@ def about(request):
   return render(request, 'about.html')
 
 def drums_index(request):
+  drums = Drum.objects.all()
   return render(request, 'drums/index.html', { 'drums': drums })
+
+def drums_detail(request, drum_id):
+  drum = Drum.objects.get(id=drum_id)
+  return render(request, 'drums/detail.html', { 'drum': drum })
