@@ -32,8 +32,9 @@
     </div>
     <nav>
       <ul>
-        <li><a href="/drums">All Drums</a></li>
-        <li><a href="/about">About</a></li>
+        <li><a href="{% url 'drums_index' %}">All Drums</a></li>
+        <li><a href="{% url 'drums_create' %}">Add a Drum</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
       </ul>
     </nav>
   </header>

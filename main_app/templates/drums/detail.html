@@ -22,6 +22,10 @@
     <h1>{{ drum.name }}</h1>
       <h2>A {{ drum.type }}</h2>
     <p>{{ drum.description }}</p>
+    <div class="drum-actions">
+      <a href="{% url 'drums_update' drum.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'drums_delete' drum.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
