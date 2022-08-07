@@ -3,10 +3,20 @@
 
 {% block head %}
 <link 
+  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
+  rel="stylesheet" 
+/>
+<link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
+<script 
+  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
+>
+</script>
+<link 
   rel="stylesheet" 
   type="text/css" 
   href="{% static 'css/drums/drum-detail.css' %}"
 />
+<script defer src="{% static 'js/drum-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -28,5 +38,48 @@
     </div>
   </div>
 </section>
+
+<div class="maintenance-toy-container">  
+  <section class="maintenance"> 
+    <div class="subsection-title">
+      <h2>Maintenance</h2>
+    </div>
+    <h3>Add Maintenance</h3>
+    <form
+      action="{% url 'add_maintenance' drum.id %}" 
+      method="post" 
+      class="subsection-content"
+    >
+      {% if drum.maintenanced_today %}
+        <p class="maintenanced">{{drum.name}} has been maintenanced today!</p>
+      {% else %}
+        <p class="unmaintenanced">{{drum.name}} needs maintenance!</p>
+      {% endif %}
+      {% csrf_token %}
+      {{ maintenance_form.as_p }}
+      <button type="submit" class="btn submit">Add Maintenance</button>
+    </form>
+    <h3>Past Maintenance</h3>
+    {% if drum.maintenance_set.all.count %}
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for maintenance in drum.maintenance_set.all %}
+          <tr>
+            <td>{{maintenance.date}}</td>
+            <td>{{maintenance.get_action_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="subsection-content">
+      <p>{{drum.name}} has not been maintenanced yet</p>
+    </div>
+  {% endif %}
+  </section>
+</div>
 
 {% endblock %}
